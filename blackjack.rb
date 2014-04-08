@@ -1,6 +1,4 @@
 # Method determines whether or not the player wants to play another round
-require 'pry'
-
 def card(person,remaining_deck,deck_values)
   card = rand(0...9)
   if remaining_deck[card] > 0
@@ -40,17 +38,25 @@ while another_round == true
     puts 'You don\'t have a big enough bankroll. Please choose a different amount.'
     wager = gets.chomp.to_i
   end
-  player = [11,2]
-  dealer = [11,2]
+
   deck_values = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
   remaining_deck = [44, 8, 12, 16, 20, 24, 28, 32, 36, 40, 40, 40, 40]
 
-  #add 2 card() after ace testing
-  puts player
+  player = []
+  dealer = []
 
-  puts dealer[0]
+  card(player,remaining_deck,deck_values)
+  card(dealer,remaining_deck,deck_values)
+  card(player,remaining_deck,deck_values)
+  card(dealer,remaining_deck,deck_values)
 
+  puts 'Your first card is ' + player[0].to_s
+  puts 'Your second card is ' + player[1].to_s
   player_score = score(player)
+  puts 'Your score is ' + player_score.to_s
+
+  puts 'The dealer\'s first card is ' + dealer[0].to_s
+
   dealer_score = score(dealer)
 
   # Initial play loop
@@ -82,7 +88,6 @@ while another_round == true
         count += 1
       end
       player_score = score(player)
-      binding.pry
     end
   end
 
@@ -107,7 +112,6 @@ while another_round == true
           end
           count += 1
         end
-        binding.pry
         dealer_score = score(dealer)
       end
     end
@@ -135,12 +139,11 @@ while another_round == true
     puts 'You bust - sorry!'
     bankroll -= wager
     puts "Your bankroll is now #{bankroll}"
-    binding.pry
   end
   
   response = 'none'
   while response == 'none'
-    puts 'Do you want to play again?'
+    puts 'Do you want to play again - yes or no?'
     response = gets.chomp
     if response == 'no'
       another_round = false
